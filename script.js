@@ -26,10 +26,10 @@ for (i = 0; i < questions.length; i++) {
 
 	var t = document.createTextNode(i+1);
 	butt.appendChild(t);
-	document.getElementById("question_select").appendChild(butt);
+	document.getElementById("question-select").appendChild(butt);
 
 	//* create interpretation input boxes *//
-	var eq_inputs = questions[i].getElementsByClassName("eq_input")
+	var eq_inputs = questions[i].getElementsByClassName("user-input")
 	for(j = 0; j < eq_inputs.length; j++) {
 		//Interpretation div has input box and text describing wolframs interpretation
 		var input = document.createElement("input")
@@ -84,12 +84,12 @@ for (i = 0; i < questions.length; i++) {
 		
 	}
 	//* pull and render wolfram questions in latex *//
-	var questionEquations = questions[i].getElementsByClassName("questionEquation")
+	var questionEquations = questions[i].getElementsByClassName("question-latex")
 	for(j = 0; j < questionEquations.length; j++) {
 		if(pullQuestions) {
 			var wcc = new WolframCloudCall(t);
 			wcc.call(" ", questions[i].id, "Q", " ", function(result) { 
-				var objects = document.getElementById(result[1]).getElementsByClassName("questionEquation")
+				var objects = document.getElementById(result[1]).getElementsByClassName("question-latex")
 				console.log(objects)
 				if(objects.length == 1) {
 					katex.render(result[0], objects[0], {
@@ -118,9 +118,9 @@ var correctBorder = "1px solid green";
 
 borders = []
 
-document.getElementById("CheckAnswer").addEventListener("click", function() {
+document.getElementById("check-answer").addEventListener("click", function() {
 	
-	var eq_inputs = questions[currentQuestion].getElementsByClassName("eq_input")
+	var eq_inputs = questions[currentQuestion].getElementsByClassName("user-input")
 	var answers;
 	
 	if(eq_inputs.length > 1) {
@@ -144,13 +144,13 @@ document.getElementById("CheckAnswer").addEventListener("click", function() {
 		console.log(result)
 		if(result[0].startsWith("{")) {
 			response = result[0].substring(1,result[0].length-1).replace(" ","").split(",")
-			if(response.length != object.getElementsByClassName("eq_input").length) {
+			if(response.length != object.getElementsByClassName("user-input").length) {
 				console.log("Note : Wolfram return different number of answer signals then there are input boxes")
 			}
 
 			for(i = 0; i < response.length; i++) {
 				console.log(response[i])
-				var input_box = object.getElementsByClassName("eq_input")[i].getElementsByClassName("input")[0]
+				var input_box = object.getElementsByClassName("user-input")[i].getElementsByClassName("input")[0]
 				if(response[i] == "True") {
 					input_box.style.border = correctBorder
 				} else {
@@ -158,7 +158,7 @@ document.getElementById("CheckAnswer").addEventListener("click", function() {
 				}
 			}
 		} else {
-			var input_box = object.getElementsByClassName("eq_input")[0].getElementsByClassName("input")[0]
+			var input_box = object.getElementsByClassName("user-input")[0].getElementsByClassName("input")[0]
 			if(result[0] == "True") {
 				input_box.style.border = correctBorder
 			} else {

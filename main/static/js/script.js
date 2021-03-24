@@ -172,4 +172,3 @@ document.getElementById("check-answer").addEventListener("click", function() {
 console.log(parseInt("1"))
 
 
-

@@ -50,7 +50,6 @@ wcc.call(key, input, function(result) { console.log(result); });
                     var i = response.lastIndexOf(',')
 
                     callback([response.substring(0,i), response.substring(i+3)]);
-                     //respone = response.replace(" \"","").split(",")
                 } else {
                     callback(null);
                 }
